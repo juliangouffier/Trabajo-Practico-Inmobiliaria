@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.TrabajoPracticoInmobiliaria" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/purple_700</item>
+    </style>
+
+    <style name="Theme.TrabajoPracticoInmobiliaria.Login" parent="Theme.TrabajoPracticoInmobiliaria.NoActionBar">
+        <item name="colorPrimary">@color/sunset_accent_orange</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/sunset_deep_purple</item>
+    </style>
+
+    <style name="Theme.TrabajoPracticoInmobiliaria.NoActionBar" parent="Theme.TrabajoPracticoInmobiliaria">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TrabajoPracticoInmobiliaria.AppBarOverlay" parent="ThemeOverlay.Material3.Dark.ActionBar" />
+
+    <style name="Theme.TrabajoPracticoInmobiliaria.PopupOverlay" parent="ThemeOverlay.Material3.Light" />
+</resources>

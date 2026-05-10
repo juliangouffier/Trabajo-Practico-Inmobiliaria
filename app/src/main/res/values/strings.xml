@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Inmobiliaria G</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="nav_header_title">Inmobiliaria G</string>
+    <string name="nav_header_subtitle">Gestión de inmuebles</string>
+    <string name="nav_header_desc">Encabezado de navegación</string>
+
+    <string name="brand_inmobiliaria_g">Inmobiliaria G</string>
+    <string name="marca_letra_logo">G</string>
+    <string name="titulo_login">Iniciar sesión</string>
+    <string name="campo_usuario">Usuario</string>
+    <string name="campo_clave">Contraseña</string>
+    <string name="boton_entrar">Entrar</string>
+    <string name="olvide_mi_clave">Olvidé mi contraseña</string>
+    <string name="mensaje_proximamente_recuperar_clave">Recuperación de contraseña disponible en la próxima entrega</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_inmuebles">Inmuebles</string>
+    <string name="menu_contratos">Contratos</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_inquilinos">Inquilinos</string>
+    <string name="menu_grupo_cuenta">Cuenta</string>
+    <string name="menu_logout">Logout</string>
+
+    <string name="logout_confirm_title">Cerrar sesión</string>
+    <string name="logout_confirm_message">¿Confirma que desea cerrar sesión?</string>
+    <string name="logout_confirm_yes">Sí, salir</string>
+    <string name="logout_confirm_cancel">Cancelar</string>
+
+    <string name="feature_in_development">En desarrollo</string>
+
+    <string name="fab_content_description">Acción flotante</string>
+
+    <string name="agency_phone_number" translatable="false">2665000628</string>
+</resources>

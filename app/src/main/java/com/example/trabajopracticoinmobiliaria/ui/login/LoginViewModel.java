@@ -7,36 +7,26 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.trabajopracticoinmobiliaria.data.AlmacenToken;
-import com.example.trabajopracticoinmobiliaria.data.remote.AccessToken;
-import com.example.trabajopracticoinmobiliaria.data.remote.PropietariosApiService;
-import com.example.trabajopracticoinmobiliaria.presentacion.EventoUnico;
+import com.example.trabajopracticoinmobiliaria.data.remote.ApiClient;
 
 import java.io.IOException;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class LoginViewModel extends AndroidViewModel {
 
-    private final PropietariosApiService propietariosApiService;
-    private final Executor ejecutor;
-    private final AlmacenToken almacenToken;
-
     private final MutableLiveData<Boolean> cargando = new MutableLiveData<>(false);
-    private final EventoUnico<String> mensajeError = new EventoUnico<>();
-    private final EventoUnico<Boolean> loginExitoso = new EventoUnico<>();
 
-    public LoginViewModel(
-            @NonNull Application aplicacion,
-            @NonNull PropietariosApiService propietariosApiService,
-            @NonNull Executor ejecutor,
-            @NonNull AlmacenToken almacenToken) {
+    private final MutableLiveData<String> mensajeError = new MutableLiveData<>();
+
+    private final MutableLiveData<Boolean> loginExitoso = new MutableLiveData<>();
+    private final ExecutorService ejecutor = Executors.newSingleThreadExecutor();
+
+    public LoginViewModel(@NonNull Application aplicacion) {
         super(aplicacion);
-        this.propietariosApiService = propietariosApiService;
-        this.ejecutor = ejecutor;
-        this.almacenToken = almacenToken;
     }
 
     public void iniciarSesion(@NonNull String usuario, @NonNull String clave) {
@@ -56,7 +46,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     private void ejecutarLogin(@NonNull String usuario, @NonNull String clave) {
         try {
-            Response<String> respuesta = propietariosApiService.login(usuario, clave).execute();
+            Response<String> respuesta = ApiClient.getServicio().login(usuario, clave).execute();
             if (respuesta.isSuccessful()) {
                 String cuerpo = respuesta.body();
                 if (cuerpo == null || cuerpo.isEmpty()) {
@@ -64,8 +54,11 @@ public class LoginViewModel extends AndroidViewModel {
                     mensajeError.postValue("Respuesta vacía del servidor");
                     return;
                 }
-                AccessToken token = AccessToken.fromRawResponse(cuerpo);
-                almacenToken.guardar(token.getValue());
+                String token = cuerpo.trim();
+                if (token.length() >= 2 && token.startsWith("\"") && token.endsWith("\"")) {
+                    token = token.substring(1, token.length() - 1).trim();
+                }
+                ApiClient.crearToken(getApplication(), token);
                 cargando.postValue(false);
                 loginExitoso.postValue(true);
             } else {
@@ -100,12 +93,12 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     @NonNull
-    public EventoUnico<String> obtenerMensajeError() {
+    public MutableLiveData<String> obtenerMensajeError() {
         return mensajeError;
     }
 
     @NonNull
-    public EventoUnico<Boolean> obtenerLoginExitoso() {
+    public MutableLiveData<Boolean> obtenerLoginExitoso() {
         return loginExitoso;
     }
 }

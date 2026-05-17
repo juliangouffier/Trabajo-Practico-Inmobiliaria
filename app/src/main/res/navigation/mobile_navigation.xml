@@ -15,7 +15,17 @@
         android:id="@+id/nav_perfil"
         android:name="com.example.trabajopracticoinmobiliaria.ui.perfil.PerfilFragment"
         android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_placeholder" />
+        tools:layout="@layout/fragment_placeholder">
+        <action
+            android:id="@+id/action_perfil_to_cambiarContrasena"
+            app:destination="@id/nav_cambiar_contrasena"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_cambiar_contrasena"
+        android:name="com.example.trabajopracticoinmobiliaria.ui.perfil.CambiarContrasenaFragment"
+        android:label="Cambiar Contraseña"
+        tools:layout="@layout/fragment_cambiar_contrasena"/>
 
     <fragment
         android:id="@+id/nav_inmuebles"

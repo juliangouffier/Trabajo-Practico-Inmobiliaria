@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.trabajopracticoinmobiliaria.data.remote.ApiClient;
 import com.example.trabajopracticoinmobiliaria.databinding.ActivityMainBinding;
 import com.example.trabajopracticoinmobiliaria.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -28,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ContenedorAplicacion aplicacion = (ContenedorAplicacion) getApplication();
-        if (!aplicacion.obtenerAlmacenToken().haySesion()) {
+        if (!ApiClient.haySesion(this)) {
             irAInicioSesionYFinalizar();
             return;
         }
@@ -130,5 +130,13 @@ public class MainActivity extends AppCompatActivity {
         NavController controladorNavegacion = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(controladorNavegacion, configuracionBarra)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            super.onDestroy();
+        } catch (IllegalStateException e) {
+        }
     }
 }

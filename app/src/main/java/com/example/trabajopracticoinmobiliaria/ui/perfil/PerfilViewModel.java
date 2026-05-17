@@ -1,40 +1,80 @@
 package com.example.trabajopracticoinmobiliaria.ui.perfil;
 
+import android.app.Application;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-public final class PerfilViewModel extends ViewModel {
+import com.example.trabajopracticoinmobiliaria.data.modelo.Propietario;
+import com.example.trabajopracticoinmobiliaria.data.remote.ApiClient;
 
-    private final MutableLiveData<String> mensaje = new MutableLiveData<>();
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    public PerfilViewModel(@NonNull String placeholderMessage) {
-        mensaje.setValue(placeholderMessage);
+public class PerfilViewModel extends AndroidViewModel {
+
+    private final MutableLiveData<Propietario> propietarioMutable = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> actualizacionExitosa = new MutableLiveData<>();
+    private final MutableLiveData<String> mensajeError = new MutableLiveData<>();
+
+    public PerfilViewModel(@NonNull Application application) {
+        super(application);
     }
 
-    @NonNull
-    public LiveData<String> obtenerMensaje() {
-        return mensaje;
+    public LiveData<Propietario> getPropietarioMutable() {
+        return propietarioMutable;
     }
 
-    public static final class Factory implements ViewModelProvider.Factory {
+    public LiveData<Boolean> getActualizacionExitosa() {
+        return actualizacionExitosa;
+    }
 
-        private final String placeholderMessage;
+    public LiveData<String> getMensajeError() {
+        return mensajeError;
+    }
 
-        public Factory(@NonNull String placeholderMessage) {
-            this.placeholderMessage = placeholderMessage;
-        }
-
-        @NonNull
-        @Override
-        @SuppressWarnings("unchecked")
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass.isAssignableFrom(PerfilViewModel.class)) {
-                return (T) new PerfilViewModel(placeholderMessage);
+    public void cargarPerfil() {
+        String token = ApiClient.bearerToken(getApplication());
+        ApiClient.getServicio().getPropietario(token).enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()) {
+                    propietarioMutable.postValue(response.body());
+                } else {
+                    mensajeError.postValue("Error al cargar perfil: " + response.message());
+                }
             }
-            throw new IllegalArgumentException("Error ViewModel: " + modelClass);
-        }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                mensajeError.postValue("Error de conexión: " + t.getMessage());
+            }
+        });
+    }
+
+    public void actualizarPerfil(@NonNull Propietario propietario) {
+        String token = ApiClient.bearerToken(getApplication());
+        ApiClient.getServicio().actualizarPropietario(token, propietario).enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()) {
+                    propietarioMutable.postValue(response.body());
+                    actualizacionExitosa.postValue(true);
+                } else {
+                    mensajeError.postValue("Error al guardar: " + response.message());
+                    actualizacionExitosa.postValue(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                mensajeError.postValue("Error de conexión: " + t.getMessage());
+                actualizacionExitosa.postValue(false);
+            }
+        });
     }
 }

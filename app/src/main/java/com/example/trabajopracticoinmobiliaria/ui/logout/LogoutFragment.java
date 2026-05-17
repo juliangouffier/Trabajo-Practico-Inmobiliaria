@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.trabajopracticoinmobiliaria.ContenedorAplicacion;
 import com.example.trabajopracticoinmobiliaria.R;
 import com.example.trabajopracticoinmobiliaria.databinding.FragmentLogoutBinding;
 import com.example.trabajopracticoinmobiliaria.ui.login.LoginActivity;
@@ -33,11 +32,7 @@ public class LogoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ContenedorAplicacion aplicacion = (ContenedorAplicacion) requireActivity().getApplication();
-        LogoutViewModel modelo = new ViewModelProvider(
-                this,
-                new LogoutViewModel.Factory(aplicacion.obtenerAlmacenToken()))
-                .get(LogoutViewModel.class);
+        LogoutViewModel modelo = new ViewModelProvider(this).get(LogoutViewModel.class);
 
         if (savedInstanceState == null) {
             mostrarDialogoConfirmacion(modelo);
@@ -51,7 +46,7 @@ public class LogoutFragment extends Fragment {
                 .setPositiveButton(R.string.logout_confirm_yes, (dialog, which) -> {
                     modelo.limpiarSesion();
                     startActivity(new Intent(requireContext(), LoginActivity.class));
-                    requireActivity().finish();
+                    requireActivity().finishAffinity();
                 })
                 .setNegativeButton(R.string.logout_confirm_cancel, (dialog, which) -> volverAtras())
                 .setOnCancelListener(dialog -> volverAtras())

@@ -1,40 +1,64 @@
 package com.example.trabajopracticoinmobiliaria.ui.inmuebles;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-public final class InmueblesViewModel extends ViewModel {
+import com.example.trabajopracticoinmobiliaria.data.modelo.Inmueble;
+import com.example.trabajopracticoinmobiliaria.data.remote.ApiClient;
 
-    private final MutableLiveData<String> mensaje = new MutableLiveData<>();
+import java.util.ArrayList;
+import java.util.List;
 
-    public InmueblesViewModel(@NonNull String placeholderMessage) {
-        mensaje.setValue(placeholderMessage);
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class InmueblesViewModel extends AndroidViewModel {
+
+    private final MutableLiveData<List<Inmueble>> inmuebles = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<Boolean> cargando = new MutableLiveData<>(false);
+    private final MutableLiveData<String> mensajeError = new MutableLiveData<>();
+
+    public InmueblesViewModel(@NonNull Application application) {
+        super(application);
     }
 
-    @NonNull
-    public LiveData<String> obtenerMensaje() {
-        return mensaje;
+    public LiveData<List<Inmueble>> getInmuebles() {
+        return inmuebles;
     }
 
-    public static final class Factory implements ViewModelProvider.Factory {
+    public LiveData<Boolean> getCargando() {
+        return cargando;
+    }
 
-        private final String placeholderMessage;
+    public LiveData<String> getMensajeError() {
+        return mensajeError;
+    }
 
-        public Factory(@NonNull String placeholderMessage) {
-            this.placeholderMessage = placeholderMessage;
-        }
+    public void cargarInmuebles() {
+        cargando.setValue(true);
+        String token = ApiClient.bearerToken(getApplication());
 
-        @NonNull
-        @Override
-        @SuppressWarnings("unchecked")
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass.isAssignableFrom(InmueblesViewModel.class)) {
-                return (T) new InmueblesViewModel(placeholderMessage);
+        ApiClient.getServicio().getInmuebles(token).enqueue(new Callback<List<Inmueble>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Inmueble>> call, @NonNull Response<List<Inmueble>> response) {
+                cargando.postValue(false);
+                if (response.isSuccessful() && response.body() != null) {
+                    inmuebles.postValue(response.body());
+                } else {
+                    mensajeError.postValue("Error al cargar inmuebles: " + response.message());
+                }
             }
-            throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass);
-        }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Inmueble>> call, @NonNull Throwable t) {
+                cargando.postValue(false);
+                mensajeError.postValue("Error de conexión: " + t.getMessage());
+            }
+        });
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opciones_uso_inmueble">
+        <item>Residencial</item>
+        <item>Comercial</item>
+    </string-array>
+
+    <string-array name="opciones_tipo_inmueble">
+        <item>Departamento</item>
+        <item>Casa</item>
+        <item>Local</item>
+        <item>Oficina</item>
+        <item>Galpón</item>
+    </string-array>
+</resources>

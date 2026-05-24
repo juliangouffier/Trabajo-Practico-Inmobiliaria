@@ -31,7 +31,26 @@
         android:id="@+id/nav_inmuebles"
         android:name="com.example.trabajopracticoinmobiliaria.ui.inmuebles.InmueblesFragment"
         android:label="@string/menu_inmuebles"
-        tools:layout="@layout/fragment_placeholder" />
+        tools:layout="@layout/fragment_inmuebles">
+        <action
+            android:id="@+id/action_inmuebles_to_cargar_inmueble"
+            app:destination="@id/nav_cargar_inmueble" />
+        <action
+            android:id="@+id/action_inmuebles_to_detalle_inmueble"
+            app:destination="@id/nav_detalle_inmueble" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_detalle_inmueble"
+        android:name="com.example.trabajopracticoinmobiliaria.ui.inmuebles.DetalleInmuebleFragment"
+        android:label="@string/titulo_detalle_inmueble"
+        tools:layout="@layout/fragment_detalle_inmueble" />
+
+    <fragment
+        android:id="@+id/nav_cargar_inmueble"
+        android:name="com.example.trabajopracticoinmobiliaria.ui.inmuebles.CargarInmuebleFragment"
+        android:label="@string/titulo_cargar_inmueble"
+        tools:layout="@layout/fragment_cargar_inmueble" />
 
     <fragment
         android:id="@+id/nav_inquilinos"

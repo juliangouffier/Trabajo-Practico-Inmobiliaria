@@ -11,6 +11,9 @@ public class Propietario implements Serializable {
     String email;
     String clave;
 
+    public Propietario() {
+    }
+
     public Propietario(String idPropietario, String nombre, String apellido, String dni, String telefono, String email, String clave) {
         this.idPropietario = idPropietario;
         this.nombre = nombre;

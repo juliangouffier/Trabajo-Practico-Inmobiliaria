@@ -30,6 +30,38 @@
 
     <string name="feature_in_development">En desarrollo</string>
 
+    <string name="titulo_cargar_inmueble">Cargar inmueble</string>
+    <string name="titulo_detalle_inmueble">Detalle del inmueble</string>
+    <string name="titulo_datos_inmueble">Datos del inmueble</string>
+    <string name="titulo_propietario">Propietario</string>
+    <string name="detalle_id_inmueble">ID: %1$d</string>
+    <string name="detalle_tipo">Tipo: %1$s</string>
+    <string name="detalle_uso">Uso: %1$s</string>
+    <string name="detalle_ambientes">Ambientes: %1$d</string>
+    <string name="detalle_superficie">Superficie: %1$d m²</string>
+    <string name="detalle_coordenadas">Latitud: %1$.1f · Longitud: %2$.1f</string>
+    <string name="detalle_propietario_id">Propietario ID: %1$d</string>
+    <string name="error_inmueble_no_encontrado">No se pudo cargar el inmueble</string>
+    <string name="agregar_inmueble">Agregar inmueble</string>
+    <string name="inmuebles_lista_vacia">No hay inmuebles registrados</string>
+    <string name="imagen_inmueble">Imagen del inmueble</string>
+    <string name="disponible">Disponible</string>
+    <string name="estado_disponible">Disponible</string>
+    <string name="estado_no_disponible">No disponible</string>
+    <string name="inmueble_con_contrato_vigente">Contrato vigente</string>
+    <string name="seleccionar_imagen">Seleccionar imagen</string>
+    <string name="campo_direccion">Dirección</string>
+    <string name="campo_uso">Uso</string>
+    <string name="campo_tipo">Tipo</string>
+    <string name="campo_ambientes">Ambientes</string>
+    <string name="campo_superficie">Superficie (m²)</string>
+    <string name="campo_valor">Valor</string>
+    <string name="campo_latitud">Latitud</string>
+    <string name="campo_longitud">Longitud</string>
+    <string name="guardar_inmueble">Guardar inmueble</string>
+    <string name="inmueble_cargado_ok">Inmueble cargado correctamente</string>
+    <string name="error_campos_numericos">Revise los campos numéricos</string>
+
     <string name="fab_content_description">Acción flotante</string>
 
     <string name="agency_phone_number" translatable="false">2665000628</string>

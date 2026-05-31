@@ -168,7 +168,8 @@
                 android:id="@+id/switchDisponible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
+                android:enabled="false"
                 android:text="@string/disponible" />
 
         </LinearLayout>

@@ -72,7 +72,6 @@ public class Inmueble implements Serializable {
         payload.valor = origen.getValor();
         payload.imagen = origen.getImagen();
         payload.disponible = disponible;
-        payload.idPropietario = origen.getIdPropietario();
         payload.tieneContratoVigente = origen.isTieneContratoVigente();
         return payload;
     }

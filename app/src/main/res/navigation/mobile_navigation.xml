@@ -56,13 +56,43 @@
         android:id="@+id/nav_inquilinos"
         android:name="com.example.trabajopracticoinmobiliaria.ui.inquilinos.InquilinosFragment"
         android:label="@string/menu_inquilinos"
-        tools:layout="@layout/fragment_placeholder" />
+        tools:layout="@layout/fragment_inquilinos">
+        <action
+            android:id="@+id/action_inquilinos_to_detalle_inquilino"
+            app:destination="@id/nav_detalle_inquilino" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_detalle_inquilino"
+        android:name="com.example.trabajopracticoinmobiliaria.ui.inquilinos.DetalleInquilinoFragment"
+        android:label="@string/titulo_detalle_inquilino"
+        tools:layout="@layout/fragment_detalle_inquilino" />
 
     <fragment
         android:id="@+id/nav_contratos"
         android:name="com.example.trabajopracticoinmobiliaria.ui.contratos.ContratosFragment"
         android:label="@string/menu_contratos"
-        tools:layout="@layout/fragment_placeholder" />
+        tools:layout="@layout/fragment_contratos">
+        <action
+            android:id="@+id/action_contratos_to_detalle_contrato"
+            app:destination="@id/nav_detalle_contrato" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_detalle_contrato"
+        android:name="com.example.trabajopracticoinmobiliaria.ui.contratos.DetalleContratoFragment"
+        android:label="@string/titulo_detalle_contrato"
+        tools:layout="@layout/fragment_detalle_contrato">
+        <action
+            android:id="@+id/action_detalle_contrato_to_pagos"
+            app:destination="@id/nav_pagos_contrato" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_pagos_contrato"
+        android:name="com.example.trabajopracticoinmobiliaria.ui.contratos.PagosContratoFragment"
+        android:label="@string/titulo_pagos_contrato"
+        tools:layout="@layout/fragment_pagos_contrato" />
 
     <fragment
         android:id="@+id/nav_logout"

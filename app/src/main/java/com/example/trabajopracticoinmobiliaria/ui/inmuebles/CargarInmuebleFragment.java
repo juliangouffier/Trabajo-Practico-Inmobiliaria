@@ -106,7 +106,7 @@ public class CargarInmuebleFragment extends Fragment {
             double valor = Double.parseDouble(texto(binding.etValor));
             double latitud = parseDoubleOrDefault(texto(binding.etLatitud), 0.0);
             double longitud = parseDoubleOrDefault(texto(binding.etLongitud), 0.0);
-            boolean disponible = binding.switchDisponible.isChecked();
+            boolean disponible = false;
 
             Inmueble inmueble = Inmueble.crearParaCarga(
                     direccion, uso, tipo, ambientes, superficie, latitud, longitud, valor, disponible);

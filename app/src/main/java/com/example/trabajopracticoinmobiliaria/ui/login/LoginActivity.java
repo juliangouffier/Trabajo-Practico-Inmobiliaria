@@ -17,6 +17,8 @@ import com.example.trabajopracticoinmobiliaria.R;
 import com.example.trabajopracticoinmobiliaria.data.remote.ApiClient;
 import com.example.trabajopracticoinmobiliaria.databinding.ActivityLoginBinding;
 
+import static android.content.Context.SENSOR_SERVICE;
+
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding enlace;
@@ -54,6 +56,9 @@ public class LoginActivity extends AppCompatActivity {
                     usuario != null ? usuario.toString() : "",
                     clave != null ? clave.toString() : "");
         });
+
+        enlace.btnOlvideClave.setOnClickListener(v ->
+                startActivity(new Intent(this, RecuperarClaveActivity.class)));
 
         vm.obtenerCargando().observe(this, cargando -> {
             boolean visible = Boolean.TRUE.equals(cargando);
